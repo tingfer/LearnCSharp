@@ -15,7 +15,8 @@ public class Tests
     public void YieldReturnTest()
     {
         var yieldReturn = new YieldReturn();
-        yieldReturn.Demo();
+        yieldReturn.Demo1();
+        yieldReturn.Demo2();
         Assert.True(true);
     }
 }

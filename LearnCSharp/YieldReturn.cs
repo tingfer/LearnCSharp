@@ -2,7 +2,7 @@
 
 public class YieldReturn
 {
-    public void Demo()
+    public void Demo1()
     {
         Console.Write($"normal return list : ");
         DisplayList(NormalReturnList(3));
@@ -40,5 +40,23 @@ public class YieldReturn
         }
 
         return list;
+    }
+
+    public void Demo2()
+    {
+        Console.Write($"yield break : ");
+        DisplayList(YieldBreakList());
+    }
+
+    private IEnumerable<int> YieldBreakList()
+    {
+        yield return 5;
+        yield return 4;
+        yield return 3;
+
+        yield break;
+
+        yield return 2;
+        yield return 1;
     }
 }
