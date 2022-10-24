@@ -19,4 +19,9 @@ public class Tests
         yieldReturn.Demo2();
         Assert.True(true);
     }
+
+    [Test]
+    public void ReflectionTest()
+    {
+    }
 }
