@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FluentAssertions.Extensions;
 
 namespace LearnCSharp;
 
@@ -6,6 +7,7 @@ namespace LearnCSharp;
 public class AssertTest
 {
     [Test]
+    [Category("Value")]
     public void IntegerAssert()
     {
         var theInt = 5;
@@ -39,6 +41,7 @@ public class AssertTest
     }
 
     [Test]
+    [Category("Value")]
     public void DoubleAssert()
     {
         var theDouble = 5.1;
@@ -50,6 +53,7 @@ public class AssertTest
     }
 
     [Test]
+    [Category("String")]
     public void StringContain()
     {
         StringAnd();
@@ -76,6 +80,7 @@ public class AssertTest
     }
 
     [Test]
+    [Category("String")]
     public void StringAnd()
     {
         const string actual = "ABCDEFGHI";
@@ -83,6 +88,7 @@ public class AssertTest
     }
 
     [Test]
+    [Category("String")]
     public void StringStartEndWith()
     {
         var theString = "This is a String";
@@ -98,6 +104,7 @@ public class AssertTest
     }
 
     [Test]
+    [Category("String")]
     public void StringBeEquivalent()
     {
         var theString = "This is a String";
@@ -110,6 +117,7 @@ public class AssertTest
     }
 
     [Test]
+    [Category("String")]
     public void StringCase()
     {
         var theString = "ABC";
@@ -122,6 +130,7 @@ public class AssertTest
     }
 
     [Test]
+    [Category("String")]
     public void StringNullEmpty()
     {
         var theString = "";
@@ -137,6 +146,7 @@ public class AssertTest
     }
 
     [Test]
+    [Category("Value")]
     public void BooleanAssert()
     {
         var theBoolean = false;
@@ -147,5 +157,20 @@ public class AssertTest
         theBoolean.Should().BeTrue();
         theBoolean.Should().Be(otherBoolean);
         theBoolean.Should().NotBe(false);
+    }
+
+    [Test]
+    [Category("Time")]
+    public void ExecutionTimeTest()
+    {
+        var someAction = () => Thread.Sleep(100);
+
+        someAction.ExecutionTime().Should().BeLessThanOrEqualTo(200.Milliseconds());
+        someAction.ExecutionTime().Should().BeLessThan(200.Milliseconds());
+
+        someAction.ExecutionTime().Should().BeGreaterThan(100.Milliseconds());
+        someAction.ExecutionTime().Should().BeGreaterThanOrEqualTo(100.Milliseconds());
+
+        someAction.ExecutionTime().Should().BeCloseTo(150.Milliseconds(), 50.Milliseconds());
     }
 }
