@@ -74,4 +74,48 @@ public class NSub
         _calculator.Add(Arg.Is<int>(x => x > 3), Arg.Is<int>(x => x < 3)).Returns(10);
         _calculator.Add(5, 1).Should().Be(10);
     }
+
+    [Test]
+    public void ReturnFromFuncTest()
+    {
+        _calculator
+            .Add(Arg.Any<int>(), Arg.Any<int>())
+            .Returns(x => (int)x[0] + (int)x[1]);
+
+        Assert.That(_calculator.Add(1, 1), Is.EqualTo(2));
+        Assert.That(_calculator.Add(20, 30), Is.EqualTo(50));
+        Assert.That(_calculator.Add(-73, 9348), Is.EqualTo(9275));
+    }
+
+    [Test]
+    public void CallBacksTest()
+    {
+        var counter = 0;
+        _calculator
+            .Add(default, default)
+            .ReturnsForAnyArgs(x =>
+            {
+                counter++;
+                return 0;
+            });
+
+        _calculator.Add(7, 3);
+        _calculator.Add(2, 2);
+        _calculator.Add(11, -3);
+        Assert.AreEqual(counter, 3);
+    }
+
+    [Test]
+    public void CallBacksTest2()
+    {
+        var counter = 0;
+        _calculator
+            .Add(default, default)
+            .ReturnsForAnyArgs(x => 0)
+            .AndDoes(x => counter++);
+
+        _calculator.Add(7, 3);
+        _calculator.Add(2, 2);
+        Assert.AreEqual(counter, 2);
+    }
 }
