@@ -3,14 +3,14 @@ using NUnit.Framework;
 
 namespace LearnCSharp;
 
-[TestFixture]
+// [TestFixture]
 public class BoxingTest
 {
     private string _source;
     private readonly Stopwatch _stopWatch = new Stopwatch();
     private const int Loop = 100000000;
 
-    [Test]
+    // [Test]
     public void StringBoxingCostTest()
     {
         _stopWatch.Start();
@@ -23,7 +23,7 @@ public class BoxingTest
         Console.Write($"Boxing Test 耗時 {_stopWatch.Elapsed.Milliseconds}毫秒");
     }
 
-    [Test]
+    // [Test]
     public void NoStringBoxingCostTest()
     {
         _stopWatch.Start();
@@ -36,7 +36,7 @@ public class BoxingTest
         Console.Write($"NoBoxing Test 耗時 {_stopWatch.Elapsed.Milliseconds}毫秒");
     }
 
-    [Test]
+    // [Test]
     public void IntBoxingCostTest()
     {
         _stopWatch.Start();
@@ -51,7 +51,7 @@ public class BoxingTest
         Console.Write($"IntBoxing Test 耗時 {_stopWatch.Elapsed.Milliseconds}毫秒");
     }
 
-    [Test]
+    // [Test]
     public void IntNoBoxingCostTest()
     {
         _stopWatch.Start();
