@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Net.NetworkInformation;
+using NUnit.Framework;
 
 namespace LearnCSharp;
 
@@ -30,7 +31,7 @@ public class TryCatch
         {
             // display stack trace info
             Console.WriteLine("----- stack info -----");
-            Console.WriteLine(ex.StackTrace.ToString());
+            Console.WriteLine(ex.StackTrace);
             Console.WriteLine("----------------------");
         }
     }
@@ -50,16 +51,8 @@ public class TryCatch
         }
         catch (Exception ex)
         {
-            // log here
-            // ...
-
-            // ## Rethrow exception ##
-            // destroys the strack trace info!
-            // throw ex;
-
-            // ## Rethrow exception ##
-            // preserves the stack trace
-            throw;
+            // throw ex; // ## Rethrow exception ## // destroys the strack trace info!
+            throw; // ## Rethrow exception ## // preserves the stack trace
         }
     }
 
@@ -74,5 +67,64 @@ public class TryCatch
     {
         int i = 0;
         i = 1 / i; // cause exception 
+    }
+
+    private void SpecificException(int type)
+    {
+        switch (type)
+        {
+            case 1: throw new NewException();
+            case 2: throw new NewException("2");
+            case 3: throw new NewException("3", new DllNotFoundException());
+        }
+    }
+
+    [Test]
+    public void TryCatch_ThrowSpecificException()
+    {
+        try
+        {
+            SpecificException(1);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.StackTrace);
+        }
+
+        try
+        {
+            SpecificException(2);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.StackTrace);
+        }
+
+        try
+        {
+            SpecificException(3);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.StackTrace);
+        }
+    }
+}
+
+internal class NewException : Exception
+{
+    public NewException() : base()
+    {
+        Console.WriteLine("default NewException");
+    }
+
+    public NewException(string message) : base(message)
+    {
+        Console.WriteLine("NewException with message");
+    }
+
+    public NewException(string message, Exception inner) : base(message, inner)
+    {
+        Console.WriteLine("NewException with message, inner Exception");
     }
 }
