@@ -19,15 +19,18 @@ public class CAsync
     {
         Print("1");
         var task1 = PrintTaskAsync("A", 20);
-        Print("1");
+        Print("2");
         var task2 = PrintTaskAsync("B", 10);
-        Print("1");
+        Print("3");
         var task3 = PrintTaskAsync("C", 0);
-        Print("1");
+        Print("4");
 
         var task1Result = task1.Result;
+        Print("5");
         var task2Result = task2.Result;
+        Print("6");
         var task3Result = task3.Result;
+        Print("7");
     }
 
     private async Task<Task> PrintTaskAsync(string msg, int delay)
